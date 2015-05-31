@@ -74,6 +74,8 @@ void keyReleased() {
   if (key == 'o' || key == 'O') {
     selectFolder("please select a folder", "setInputFolder");
     String[] lines = loadStrings("txt");
+// Idee nur bestimmte Dateitypen zu filtern
+//Besser wäre, wenn Programm direkt sagt, wieviele Dateitypen es jeweils gibt.
   }
 }
 
