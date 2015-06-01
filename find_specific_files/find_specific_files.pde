@@ -75,10 +75,13 @@ void setInputFolder(String theFolderPath) {
   // get files on harddisk
   println("\n"+theFolderPath);
   FileWalker fw = new FileWalker(theFolderPath);
+  long start = millis();
   fw.Walk();
+  long end = millis();
   fw.printStatsToConsole();
   // e.g. print the number of PDF documents:
   println("Number of PDFs: " + fw.countForExtension("pdf"));
+  println("Scan took " + ((end - start)/1000.0) + " seconds");
 }
 
 void keyReleased() {
