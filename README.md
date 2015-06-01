@@ -9,7 +9,7 @@ analysing data via processing and trying to get the number of the different sort
 Use the _terminal_ application and drag in the `scanner` file in  the `bin` directory. then append the `-path` option so your commandline looks something like this:
 
 ```
-…/bin/scanner -path=Users/jens/Documents
+…/bin/scanner -path=/Users/jens/Documents
 ```
 
 
