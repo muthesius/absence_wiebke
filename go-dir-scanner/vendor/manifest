@@ -1,0 +1,12 @@
+{
+	"version": 0,
+	"dependencies": [
+		{
+			"importpath": "github.com/MichaelTJones/walk",
+			"repository": "https://github.com/MichaelTJones/walk",
+			"revision": "3af09438b0ab0e8f296410bfa646a7e635ea1fc0",
+			"branch": "master",
+			"path": ""
+		}
+	]
+}
