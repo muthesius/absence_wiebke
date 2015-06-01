@@ -1,6 +1,12 @@
-// M_5_2_01.pde
-// FileSystemItem.pde
+// find_sepcific_files.pde
+// FileWalker.pde
+//
+// Part of an exlorative process on digital legacy
+// Written by Wiebke Wetzger & Jens A. Ewald
+// Muthesius Academy of Fine Arts and Design 2015
 // 
+// CREDITS
+// Based on an example of the book:
 // Generative Gestaltung, ISBN: 978-3-87439-759-9
 // First Edition, Hermann Schmidt, Mainz, 2009
 // Hartmut Bohnacker, Benedikt Gross, Julia Laub, Claudius Lazzeroni
@@ -17,30 +23,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// CREDITS
-// part of the FileSystemItem class is based on code from Visualizing Data, First Edition 
-// by Ben Fry. Copyright 2008 Ben Fry, 9780596514556.
 
 /**
  * press 'o' to select an input folder!
- * console output only!
- * take care of very big folders, loading will take up to several minutes.
- * 
- * program takes a file directory (hierarchical tree) on harddisk 
- * as input and prints all filenames to the console.
  *
- * and shows also how to traverse a hierarchical tree in two
- * different ways: Depth First Search + Breadth First Search
+ * the scetch will walk the whole tree of files
+ * and collect information on the found files (only files)
+ * see the FileWalker tab for details and modify the
+ * collectStats(...) method to record more info on the given entry.
+ *
+ * WARNING: Folders with deep structures can take minutes to scan!!!
  * 
  * KEYS
  * o                  : select an input folder
+ *
+ *
+ * TODO
+ * - add the depth limiting parameter to the Walk(String path); method!
+ * - add more information about an entry to the FileWalker class
+ * - filter the noisy unkown file extensions
+ * - maybe an event would be nice
+ * - probably good, if the traversing would be done in the background
+ * - the FileSystemItem class from the original example is not used any more
  */
 
-import java.util.Calendar;
-import java.io.File;
 
 // ------ default folder path ------
-String defaultFolderPath = System.getProperty("user.home")+"/Desktop";
+String defaultFolderPath = System.getProperty("user.home")+"/Documents";
 //String defaultFolderPath = "/Users/admin/Desktop";
 //String defaultFolderPath = "C:\\windows";
 
@@ -56,6 +65,7 @@ void draw() {
   // keep the app running
 }
 
+
 // ------ folder selection dialog + init visualization ------
 void setInputFolder(File theFolder) {
   setInputFolder(theFolder.toString());
@@ -64,18 +74,16 @@ void setInputFolder(File theFolder) {
 void setInputFolder(String theFolderPath) {
   // get files on harddisk
   println("\n"+theFolderPath);
-  FileSystemItem selectedFolder = new FileSystemItem(new File(theFolderPath)); 
-  selectedFolder.printDepthFirst();
-  println("\n");
-  selectedFolder.printBreadthFirst(); 
+  FileWalker fw = new FileWalker(theFolderPath);
+  fw.Walk();
+  fw.printStatsToConsole();
+  // e.g. print the number of PDF documents:
+  println("Number of PDFs: " + fw.countForExtension("pdf"));
 }
 
 void keyReleased() {
   if (key == 'o' || key == 'O') {
     selectFolder("please select a folder", "setInputFolder");
-    String[] lines = loadStrings("txt");
-// Idee nur bestimmte Dateitypen zu filtern
-//Besser wäre, wenn Programm direkt sagt, wieviele Dateitypen es jeweils gibt.
   }
 }
 

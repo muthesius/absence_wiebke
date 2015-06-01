@@ -1,4 +1,4 @@
-// M_5_2_01.pde
+// Modified version of 
 // FileSystemItem.pde
 // 
 // Generative Gestaltung, ISBN: 978-3-87439-759-9
@@ -58,23 +58,21 @@ class FileSystemItem {
       }
     }
   }
-
-
+  
+  // provide a stubb method for found entry
+  void onEntry(File entry) {}
 
   // ------ print and debug functions ------
   // Depth First Search
   void printDepthFirst() {
-    println("printDepthFirst");
     // global fileCounter
     fileCounter = 0;
     printDepthFirst(0,-1);
-    println(fileCounter+" files");
   }
+  
   void printDepthFirst(int depth, int indexToParent) {
-    // print four spaces for each level of depth + debug println
-    for (int i = 0; i < depth; i++) print("    ");  
-    println(fileCounter+" "+indexToParent+"<-->"+fileCounter+" ("+depth+") "+file.getName());
-
+    onEntry(file);
+    
     indexToParent = fileCounter;
     fileCounter++;
     // now handle the children, if any
@@ -85,8 +83,7 @@ class FileSystemItem {
 
 
   // Breadth First Search
-  void printBreadthFirst() {
-    println("printBreadthFirst");
+  void breadthFirst() {
 
     // queues for pushing and saving all elements in "breadth first search" style
     ArrayList items = new ArrayList();  
@@ -107,9 +104,7 @@ class FileSystemItem {
       int depth = (Integer) depths.get(index); 
       int indexToParent = (Integer) indicesParent.get(index);
 
-      // print four spaces for each level of depth + debug println
-      for (int i = 0; i < depth; i++) print("    ");
-      println(index+" "+indexToParent+"<-->"+index+" ("+depth+") "+item.file.getName());
+      onEntry(item.file);
 
       // is current node a directory?
       // yes -> push all children to the end of the items
@@ -123,7 +118,6 @@ class FileSystemItem {
       }
       index++;
     }
-    println(index+" files");
   }
 }
 
